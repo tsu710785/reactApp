@@ -1,17 +1,12 @@
 import React from 'react';
 
 
-class ProductList extends React.Component {
-	constructor(props){
-   		super(props);
-   		console.log(props.datas);
-
-	}
+class ProductRow extends React.Component {
   	render() {
       	return (
-      		<h5>
-      			{this.props.datas}
-      		</h5>
+      		<tr>
+      			<td>{this.props.product.price}</td>
+      		</tr>
       	);
    	}
 }
@@ -21,7 +16,7 @@ class SearchBar extends React.Component {
    render() {
       return (
          <div>
-         	<input type="text"/>
+         	<input type="text" placeholder="Search..."/>
          </div>
       );
    }
@@ -40,17 +35,30 @@ class Product extends React.Component {
    		// 	// return rows;
    		// };
    		// var row=[];
-   		console.log(props.products);
+   		console.log(props.products[0].price);
    		
    		
    	}
 
 	render() {
-		return (
-        	<ProductList datas={this.props.products.price} key={this.props.products.category} />
+      var rows = [];
+		this.props.products.forEach(function(product){
+         rows.push(<ProductRow product={product} key={product.category} />)
+      });
 
-      	);
-   	}
+      return (
+        	// <ProductList datas={this.props.products[0].price} key={this.props.products[0].category} />
+         <table>
+           <thead>
+             <tr>
+               <th>Name</th>
+               <th>Price</th>
+             </tr>
+           </thead>
+           <tbody>{rows}</tbody>
+         </table>
+      );
+   }
 }
 
 // Product.defaultProps = { row: [] };
