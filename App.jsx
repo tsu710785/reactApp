@@ -1,17 +1,16 @@
 import React from 'react';
 
 
-class ProductList extends React.Component {
+class ProductRow extends React.Component {
 	constructor(props){
    		super(props);
-   		console.log(props.datas);
 
 	}
   	render() {
       	return (
-      		<h5>
-      			{this.props.datas}
-      		</h5>
+			<tr>
+      			<td>{this.props.products.price}</td>
+      		</tr>
       	);
    	}
 }
@@ -46,9 +45,18 @@ class Product extends React.Component {
    	}
 
 	render() {
-		return (
-        	<ProductList datas={this.props.products.price} key={this.props.products.category} />
+		var rows = this.props.products.map((product) => <ProductRow products={product} key={product.category} />);
 
+		return (
+        	 <table>
+	           <thead>
+	             <tr>
+	               <th>Name</th>
+	               <th>Price</th>
+	             </tr>
+	           </thead>
+	           <tbody>{rows}</tbody>
+	         </table>
       	);
    	}
 }
